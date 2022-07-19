@@ -19,7 +19,7 @@ RUN yarn install
 
 # Copy the rest of our Next.js folder into /app
 COPY next.config.js ./next.config.js
-COPY pages ./pages
+COPY src/pages ./pages
 COPY public ./public
 COPY styles ./styles
 
