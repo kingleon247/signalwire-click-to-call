@@ -6,9 +6,9 @@ services:
       dockerfile: Dockerfile
     environment:
       DB_HOST: db
-      DB_DATABASE: auth
+      DB_DATABASE: click_to_call_next_lara
       DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_PASSWORD:
     ports:
       - 8000:8000
     volumes:
