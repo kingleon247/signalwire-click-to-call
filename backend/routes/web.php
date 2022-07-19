@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Redirect;
+    use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return Redirect::to(env('FRONTEND_URL'));
+});
+
+Route::get('/home', function () {
+    return Redirect::to(env('FRONTEND_URL'));
 });
 
 require __DIR__.'/auth.php';
