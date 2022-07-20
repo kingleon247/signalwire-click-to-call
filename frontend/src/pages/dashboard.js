@@ -17,10 +17,15 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '@/components/Dashboard/listItems';
+import { mainListItems } from '@/components/Dashboard/listItems';
 import Chart from '@/components/Dashboard/Chart';
 import Deposits from '@/components/Dashboard/Deposits';
 import Orders from '@/components/Dashboard/Orders';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import {useAuth} from "@/hooks/auth";
+import MxLink from "@/components/MxLink";
 
 function Copyright(props) {
     return (
@@ -33,6 +38,12 @@ function Copyright(props) {
             {'.'}
         </Typography>
     );
+}
+
+const auth = true;
+
+const handleMenu = () => {
+    return alert('hello')
 }
 
 const drawerWidth = 240;
@@ -84,6 +95,25 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+    const { user } = useAuth({ middleware: 'auth' })
+
+    const { logout } = useAuth()
+
+    const [auth, setAuth] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleChange = (e) => {
+        setAuth(e.target.checked);
+    };
+
+    const handleMenu = (e) => {
+        setAnchorEl(e.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -93,7 +123,7 @@ function DashboardContent() {
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <AppBar position="absolute" open={open}>
+                <AppBar position="absolute" open={open} sx={{ backgroundColor: '#099b9f'}}>
                     <Toolbar
                         sx={{
                             pr: '24px', // keep right padding when drawer closed
@@ -120,11 +150,42 @@ function DashboardContent() {
                         >
                             Dashboard
                         </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+
+                        {auth && (
+                            <div>
+                                <Typography variant='p'>{user?.name}</Typography>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleMenu}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem component={MxLink} href='/dashboard'>Dashboard</MenuItem>
+                                    <MenuItem component={MxLink} href={'/settings'}>Settings</MenuItem>
+                                    <MenuItem component={MxLink} href={'/'}>Landing Page</MenuItem>
+                                    <MenuItem onClick={logout}>Logout</MenuItem>
+                                </Menu>
+                            </div>
+                        )}
                     </Toolbar>
                 </AppBar>
 
