@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import IphoneIcon from "@mui/icons-material/PhoneIphone";
 
 function Copyright() {
     return (
@@ -39,21 +40,47 @@ export default function Album() {
 
             <CssBaseline />
 
-            <AppBar position="relative">
-                <Toolbar>
-                    <PainterIcon sx={{ mr: 2 }} />
+            <AppBar position="relative" sx={{ height: 88 }}>
+                <Toolbar sx={{ mt: 1.5}}>
+                    {/* Header Logo */}
+                    <PainterIcon sx={{
+                        // display: { xs: 'none', sm: 'flex' },
+                        md: 'flex',
+                        mr: { xs: .5, sm: 2},
+                        fontSize: { xs: 30, sm: 44 }
+                    }} />
                     <Typography
                         variant="h5"
                         color="inherit"
                         noWrap
-                        sx={{ flexGrow: 1 }}
+                        sx={{
+                            flexGrow: 1,
+                            mr: 2,
+                            fontSize: { xs: 16, sm: 34 },
+                            // display: { xs: 'none', sm: 'flex' },
+                            // fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.001rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
                     >
                         GreatPainters
                     </Typography>
 
-                    <Button color="inherit">
-                        <PainterIcon sx={{ mr: 2 }} />
-                        Login
+
+
+                    {/* Header Click To Call */}
+                    <Button
+                        href='tel:+15555555555'
+                        color="inherit"
+                        sx={{ fontSize: { xs: 12, sm: 18 } }}
+                    >
+                        <IphoneIcon
+                            // xs={{ display: { sm: 'none' }}}
+                            sx={{ fontSize: { xs: 14, sm: 22 } }}
+                        />
+                        (455) 555-5555
                     </Button>
 
                 </Toolbar>
@@ -95,11 +122,13 @@ export default function Album() {
                             spacing={2}
                             justifyContent="center"
                         >
-                            <Button variant="contained">Main call to action</Button>
-                            <Button variant="outlined">Secondary action</Button>
+                            <Button variant="contained">Click to Call Now!</Button>
+                            {/*<Button variant="outlined">Secondary action</Button>*/}
                         </Stack>
                     </Container>
                 </Box>
+
+
                 <Container sx={{ py: 8 }} maxWidth="md">
                     {/* End hero unit */}
                     <Grid container spacing={4}>
