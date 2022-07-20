@@ -17,6 +17,7 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import IphoneIcon from "@mui/icons-material/PhoneIphone";
 
+
 function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary" align="center">
@@ -33,6 +34,31 @@ function Copyright() {
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
+
+const footers = [
+    {
+        title: 'Company',
+        description: ['Our Team', 'History', 'Contact us', 'Locations'],
+    },
+    {
+        title: 'Features',
+        description: [
+            'Cool stuff',
+            'Team feature',
+            'Random feature',
+            'Developer stuff',
+            'Something Else',
+        ],
+    },
+    {
+        title: 'Services',
+        description: ['Interior Painting', 'Exterior Painting', 'Drywall Repair', 'Deck Staining'],
+    },
+    {
+        title: 'Legal',
+        description: ['Privacy policy', 'Terms of use'],
+    },
+];
 
 export default function Album() {
     return (
@@ -148,6 +174,7 @@ export default function Album() {
                             justifyContent="center"
                         >
                             <Button
+                                href='tel:+15555555555'
                                 variant="contained"
                                 // sx={{ backgroundColor: '#07b0c1' }}
                                 // sx={{ backgroundColor: '#a37413' }}
@@ -159,59 +186,40 @@ export default function Album() {
                         </Stack>
                     </Container>
                 </Box>
-
-
-                <Container sx={{ py: 8 }} maxWidth="md">
-                    {/* End hero unit */}
-                    <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
-                                <Card
-                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                >
-                                    <CardMedia
-                                        component="img"
-                                        sx={{
-                                            // 16:9
-                                            pt: '56.25%',
-                                        }}
-                                        image="https://source.unsplash.com/random"
-                                        alt="random"
-                                    />
-                                    <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
-                                        </Typography>
-                                        <Typography>
-                                            This is a media card. You can use this section to describe the
-                                            content.
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button size="small">View</Button>
-                                        <Button size="small">Edit</Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Container>
             </main>
+
             {/* Footer */}
-            <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-                <Typography variant="h6" align="center" gutterBottom>
-                    Footer
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    align="center"
-                    color="text.secondary"
-                    component="p"
-                >
-                    Something here to give the footer a purpose!
-                </Typography>
+            <Container
+                maxWidth="md"
+                component="footer"
+                sx={{
+                    borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+                    mt: 8,
+                    mb: -1,
+                    py: [3, 6],
+                    ul: { margin: 0, padding: 0, listStyle: 'none', listStyleType: 'none', textDecoration: 'none' }
+                }}
+            >
+                <Grid container spacing={4} justifyContent="space-evenly" sx={{ textAlign: 'center' }}>
+                    {footers.map((footer) => (
+                        <Grid item xs={6} sm={3} key={footer.title} sx={{ mb: 4 }}>
+                            <Typography variant="h6" color="text.primary" gutterBottom>
+                                {footer.title}
+                            </Typography>
+                            <ul>
+                                {footer.description.map((item) => (
+                                    <li key={item}>
+                                        <Link href={item === 'Developer stuff' ? 'https://www.google.com' : '#'} variant="subtitle1" color="text.secondary" sx={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Grid>
+                    ))}
+                </Grid>
                 <Copyright />
-            </Box>
+            </Container>
             {/* End footer */}
         </ThemeProvider>
     );
