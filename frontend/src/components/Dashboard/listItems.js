@@ -4,16 +4,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Nlink from "@/components/Nlink";
 
+// <Button variant="contained" component={Link} noLinkStyle href="/">
+//     Go to the main page
+// </Button>
 export const mainListItems = (
     <React.Fragment>
-        <ListItemButton>
+        <ListItemButton component={Nlink} href='/dashboard'>
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItemButton>
-        <ListItemButton>
+
+        <ListItemButton component={Nlink} href='/'>
             <ListItemIcon>
                 <SettingsIcon />
             </ListItemIcon>
