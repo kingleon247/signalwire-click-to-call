@@ -40,13 +40,17 @@ export default function Album() {
 
             <CssBaseline />
 
-            <AppBar position="relative" sx={{ height: 88 }}>
+            <AppBar
+                position="relative"
+                sx={{ height: 88, backgroundColor: '#099b9f'}}
+                // sx={{ height: 88, backgroundColor: '#1accd1'}}
+            >
                 <Toolbar sx={{ mt: 1.5}}>
                     {/* Header Logo */}
                     <PainterIcon sx={{
                         // display: { xs: 'none', sm: 'flex' },
                         md: 'flex',
-                        mr: { xs: .5, sm: 2},
+                        mr: { xs: .5, sm: 1},
                         fontSize: { xs: 30, sm: 44 }
                     }} />
                     <Typography
@@ -56,10 +60,10 @@ export default function Album() {
                         sx={{
                             flexGrow: 1,
                             mr: 2,
-                            fontSize: { xs: 16, sm: 34 },
+                            fontSize: { xs: 16, sm: 28 },
                             // display: { xs: 'none', sm: 'flex' },
                             // fontFamily: 'monospace',
-                            fontWeight: 700,
+                            fontWeight: 500,
                             letterSpacing: '.001rem',
                             color: 'inherit',
                             textDecoration: 'none',
@@ -86,17 +90,31 @@ export default function Album() {
                 </Toolbar>
             </AppBar>
 
-            <main>
+            <main >
                 {/* Hero unit */}
                 <Box
                     sx={{
-                        bgcolor: 'background.paper',
+                        backgroundImage: "linear-gradient(rgb(0 0 0 / 0%), #0f0f10e0), url('img/pexels-terry-magallanes-2988860.jpg')",
+                        // backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/pexels-terry-magallanes-2988860.jpg')",
+                        // backgroundImage: "url('/img/pexels-pixabay-271816.jpg')",
+                        backgroundSize: 'cover',
+                        height: '101vh',
+                        overflow: 'hidden',
+                        backgroundPosition: 'center top',
+                        // bgcolor: 'background.paper',
                         pt: 8,
                         pb: 6,
                     }}
                 >
-                    <Container maxWidth="sm">
+                    <Container maxWidth="sm" >
                         <Typography
+                            sx={{
+                                mt: 2,
+                                mb: 6,
+                                fontSize: { xs: '3rem', sm: '3.75rem' },
+                                color: '#ffffff',
+                                fontWeight: 400
+                            }}
                             component="h1"
                             variant="h2"
                             align="center"
@@ -105,11 +123,18 @@ export default function Album() {
                         >
                             Talk to an amazing painter today!
                         </Typography>
-                        <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            // color="text.secondary"
+                            color='#f9e8e8'
+                            paragraph
+                            sx={{ fontSize: { xs: '1.3rem', sm: '1.5rem' }  }}
+                        >
                             GreatPainters is the <Typography
                                 variant="span"
                                 sx={{ mt: 33 }}
-                                color="green"
+                                color="#f9e8e8"
                                 fontSize={22}
                                 fontWeight={'bold'}
                             >
@@ -122,7 +147,14 @@ export default function Album() {
                             spacing={2}
                             justifyContent="center"
                         >
-                            <Button variant="contained">Click to Call Now!</Button>
+                            <Button
+                                variant="contained"
+                                // sx={{ backgroundColor: '#07b0c1' }}
+                                // sx={{ backgroundColor: '#a37413' }}
+                                sx={{ backgroundColor: '#68a313' }}
+                            >
+                                Click to Call Now!
+                            </Button>
                             {/*<Button variant="outlined">Secondary action</Button>*/}
                         </Stack>
                     </Container>
