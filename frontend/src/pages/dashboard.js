@@ -1,5 +1,6 @@
 import AppLayout from '@/components/Layouts/AppLayout'
 import Head from 'next/head'
+import 'tailwindcss/tailwind.css'
 
 const Dashboard = () => {
     return (

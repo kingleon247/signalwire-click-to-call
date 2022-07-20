@@ -5,6 +5,7 @@ import GuestLayout from '@/components/Layouts/GuestLayout'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
+import 'tailwindcss/tailwind.css'
 
 const VerifyEmail = () => {
     const { logout, resendEmailVerification } = useAuth({
