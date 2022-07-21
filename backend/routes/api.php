@@ -61,4 +61,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::get('/calls', [CallController::class, 'index']);
-Route::get('/incoming-call', [CallController::class, 'incomingCall']);
+Route::post('/incoming-call', [CallController::class, 'incomingCall']);
+Route::get('/list-calls', [CallController::class, 'listCalls']);
