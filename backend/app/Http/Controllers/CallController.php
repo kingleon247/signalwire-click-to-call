@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use SignalWire\Rest\Client;
+use Twilio\Exceptions\ConfigurationException;
 
 class CallController extends Controller
 {
@@ -34,6 +36,13 @@ class CallController extends Controller
 
 
     public function incomingCall() {
+        try {
+            $client = new Client('your-project', 'your-token', array("signalwireSpaceUrl" => "example.signalwire.com"));
+        } catch (ConfigurationException $e) {
+            return 'error';
+        }
+
+        // You can then use $client to make calls, send messages, and more.
         return 'incoming call';
     }
 }
