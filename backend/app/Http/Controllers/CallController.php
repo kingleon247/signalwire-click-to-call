@@ -31,13 +31,15 @@ class CallController extends Controller
 
     public function calls() {
         $response = Http::withBasicAuth($this->projectId, $this->token)->get($this->apiCallsUrl);
-        return json_decode($response);;
+        return json_decode($response);
     }
 
     public function incomingCall(Request $request) {
         $response = new VoiceResponse();
         $businessName = 'Perfect Painters';
-        $greeting = "Thanks for calling ${businessName}. Please hold while I connect you.";
+        $defaultGreeting = "Thanks for calling ${businessName}. Please hold while I connect you.";
+        // Set greeting to default if none set.
+        $greeting = !empty($request->greeting) ? $request->greeting : $defaultGreeting;
 
         // Greet caller before forwarding to business number
         $response->say($greeting);
