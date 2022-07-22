@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use SignalWire\LaML;
 use SignalWire\LaML\VoiceResponse;
 use SignalWire\Rest\Client;
 use Twilio\Exceptions\ConfigurationException;
+use Twilio\Exceptions\TwilioException;
 use Twilio\Http\Response;
 
 class CallController extends Controller
@@ -29,30 +29,27 @@ class CallController extends Controller
         $this->apiCallsUrl = $this->apiMainUrl . "/Calls.json";
     }
 
-    public function index() {
-        //
+    public function calls() {
+        $response = Http::withBasicAuth($this->projectId, $this->token)->get($this->apiCallsUrl);
+        return json_decode($response);;
     }
 
-    public function incomingCall() {
-        try {
-            $client = new Client($this->projectId, $this->token, array("signalwireSpaceUrl" => $this->spaceUrl));
-        } catch (ConfigurationException $e) {
-            return $e;
-        }
-
+    public function incomingCall(Request $request) {
         $response = new VoiceResponse();
+        $businessName = 'Perfect Painters';
+        $greeting = "Thanks for calling ${businessName}. Please hold while I connect you.";
 
-        // Now use $response like you did before!
-        $response->say('Hey, welcome to SignalWire!');
+        // Greet caller before forwarding to business number
+        $response->say($greeting);
 
+        // Forward call
+        $response->dial(
+            env('FORWARDING_NUMBER'), // to
+            [ 'callerId' => env('SIGNALWIRE_NUMBER') ] // from
+        );
 
         return $response;
     }
 
-    public function listCalls() {
-        $response = Http::withBasicAuth($this->projectId, $this->token)->get($this->apiCallsUrl);
-        return json_decode($response);;
-        return $response['calls'];
-    }
 }
 

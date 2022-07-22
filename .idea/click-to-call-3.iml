@@ -120,6 +120,22 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/signalwire/signalwire" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/icecave/repr" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/ratchet/rfc6455" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/ratchet/pawl" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/recoil/react" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/recoil/kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/recoil/api" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/twilio/sdk" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/promise-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/dns" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/react/socket" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
