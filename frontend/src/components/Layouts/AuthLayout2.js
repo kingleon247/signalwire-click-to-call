@@ -80,28 +80,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const DrawerContent = ({ toggleDrawer }) => (
-    <>
-        <Toolbar
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                px: [1],
-            }}
-        >
-            <IconButton onClick={toggleDrawer}>
-                <ChevronLeftIcon />
-            </IconButton>
-        </Toolbar>
-        <Divider />
-        <List component="nav">
-            {mainListItems}
-        </List>
-    </>
-)
-
-
 const mdTheme = createTheme();
 
 const AuthLayout = ({children}, ...props) => {
@@ -154,9 +132,9 @@ const AuthLayout = ({children}, ...props) => {
                 }}
             >
                 <Toolbar
-                    // sx={{
-                    //     pr: '24px', // keep right padding when drawer closed
-                    // }}
+                    sx={{
+                        pr: '24px', // keep right padding when drawer closed
+                    }}
                 >
                     <IconButton
                         edge="start"
@@ -228,20 +206,33 @@ const AuthLayout = ({children}, ...props) => {
                     display: { xs: 'block', sm: 'none' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
+                // variant="temporary"
+                // open={open}
+                // ModalProps={{
+                //     keepMounted: true, // Better open performance on mobile.
+                // }}
+                // sx={{
+                //     display: { xs: 'block', sm: 'none' },
+                //     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                // }}
             >
-                <DrawerContent toggleDrawer={toggleDrawer}/>
+                <Toolbar
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        px: [1],
+                    }}
+                >
+                    <IconButton onClick={toggleDrawer}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Toolbar>
+                <Divider />
+                <List component="nav">
+                    {mainListItems}
+                </List>
             </Drawer>
-            <Drawer
-                variant="permanent"
-                sx={{
-                    display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                }}
-                open
-            >
-                <DrawerContent toggleDrawer={toggleDrawer}/>
-            </Drawer>
-
             {/* Main Content */}
             { children }
         </Box>

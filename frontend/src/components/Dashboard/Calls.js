@@ -56,7 +56,7 @@ function preventDefault(e) {
 const Calls = ({callsData}) => {
     console.log('Calls - callsData: ', callsData)
     return (
-        <React.Fragment>
+        <>
             <Title>Recent Calls</Title>
             <Table size="small">
                 <TableHead>
@@ -79,7 +79,7 @@ const Calls = ({callsData}) => {
                         }
 
                         return(
-                            <TableRow key={call.index}>
+                            <TableRow key={call.sid}>
                                 <TableCell>{call.formatted_from}</TableCell>
                                 <TableCell>{formatDate(call.start_time)}</TableCell>
                                 <TableCell>{formatDuration(call.duration)}</TableCell>
@@ -92,7 +92,7 @@ const Calls = ({callsData}) => {
             <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
                 See more orders
             </Link>
-        </React.Fragment>
+        </>
     );
 }
 
