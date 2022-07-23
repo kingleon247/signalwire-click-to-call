@@ -18,6 +18,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {useAuth} from "@/hooks/auth";
 import MxLink from "@/components/MxLink";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LandingPageIcon from '@mui/icons-material/Monitor';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Copyright(props) {
     return (
@@ -198,10 +202,11 @@ const AuthLayout = ({children}, ...props) => {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem component={MxLink} href='/dashboard'>Dashboard</MenuItem>
-                                <MenuItem component={MxLink} href={'/settings'}>Settings</MenuItem>
-                                <MenuItem component={MxLink} href={'/'}>Landing Page</MenuItem>
-                                <MenuItem onClick={logout}>Logout</MenuItem>
+                                <MenuItem component={MxLink} href={'/dashboard'}><DashboardIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Dashboard</MenuItem>
+                                <MenuItem component={MxLink} href={'/settings'}><SettingsIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Settings</MenuItem>
+                                <MenuItem component={MxLink} href={'/'}><LandingPageIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Landing Page</MenuItem>
+                                <Divider sx={{ my: 0.5 }} />
+                                <MenuItem onClick={logout}><LogoutIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Logout</MenuItem>
                             </Menu>
                         </div>
                     )}
