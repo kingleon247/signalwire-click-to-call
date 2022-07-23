@@ -8,26 +8,26 @@ import LandingPageIcon from '@mui/icons-material/Monitor';
 import MxLink from "@/components/MxLink";
 
 export const mainListItems = (
-    <React.Fragment>
+    <>
         <ListItemButton component={MxLink} href='/dashboard'>
-            <ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 32 }}>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItemButton>
 
         <ListItemButton component={MxLink} href='/settings'>
-            <ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 32 }}>
                 <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Settings" />
         </ListItemButton>
 
         <ListItemButton component={MxLink} href='/'>
-            <ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 32 }}>
                 <LandingPageIcon />
             </ListItemIcon>
             <ListItemText primary="Landing Page" />
         </ListItemButton>
-    </React.Fragment>
+    </>
 );

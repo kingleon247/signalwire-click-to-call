@@ -32,9 +32,7 @@ function Copyright(props) {
     );
 }
 
-const auth = true;
-
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -101,24 +99,23 @@ const DrawerContent = ({ toggleDrawer }) => (
     </>
 )
 
-
-const mdTheme = createTheme();
-
 const AuthLayout = ({children}, ...props) => {
     const { user } = useAuth({ middleware: 'auth' })
     const { logout } = useAuth()
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
+    const { window } = props;(false);
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [open, setOpen] = React.useState(true);
 
-    console.log('AuthLayout - auth: ', auth)
-    console.log('AuthLayout - auth: ', auth)
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
+
+
+    const handleDrawerToggle = () => {
+        alert('handleDrawerToggle')
+        setOpen(!open);
+    };
 
     const handleChange = (e) => {
         setAuth(e.target.checked);
@@ -130,11 +127,6 @@ const AuthLayout = ({children}, ...props) => {
 
     const handleClose = () => {
         setAnchorEl(null);
-    };
-
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-        setOpen(!open);
     };
 
     const container = window !== undefined ? () => window().document.body : undefined;
@@ -159,6 +151,7 @@ const AuthLayout = ({children}, ...props) => {
                     // }}
                 >
                     <IconButton
+                        // size="large"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
@@ -219,7 +212,6 @@ const AuthLayout = ({children}, ...props) => {
                 container={container}
                 variant="temporary"
                 open={open}
-                // open={mobileOpen}
                 onClose={handleDrawerToggle}
                 ModalProps={{
                     keepMounted: true, // Better open performance on mobile.
@@ -237,7 +229,7 @@ const AuthLayout = ({children}, ...props) => {
                     display: { xs: 'none', sm: 'block' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
-                open
+                open={open}
             >
                 <DrawerContent toggleDrawer={toggleDrawer}/>
             </Drawer>

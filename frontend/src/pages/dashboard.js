@@ -78,7 +78,7 @@ const Dashboard = () => {
                 }}
             >
                 <Toolbar />
-                <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pr: 0, pl: 0 }}>
+                <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                     <Grid container spacing={3}>
                         {/* Recent Calls */}
                         <Grid item xs={12}>
