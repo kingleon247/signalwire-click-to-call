@@ -1,5 +1,6 @@
 import Navigation from '@/components/Layouts/Navigation'
 import { useAuth } from '@/hooks/auth'
+import 'tailwindcss/tailwind.css'
 
 const AppLayout = ({ header, children }) => {
     const { user } = useAuth({ middleware: 'auth' })

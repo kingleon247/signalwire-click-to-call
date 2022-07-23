@@ -53,7 +53,10 @@
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
             ->middleware('auth')
             ->name('logout');
+
+        Route::post('/calls', [CallController::class, 'Calls'])
+            ->middleware('auth')
+            ->name('calls');
     });
 
     Route::post('/incoming-call', [CallController::class, 'incomingCall'])->name('incomingCall');
-    Route::post('/calls', [CallController::class, 'Calls'])->name('Calls');

@@ -13,14 +13,17 @@ import Link from '@mui/material/Link';
 import {createTheme, styled, ThemeProvider} from '@mui/material/styles';
 import IphoneIcon from "@mui/icons-material/PhoneIphone";
 import MxLink from "@/components/MxLink";
-import MenuItem from "@mui/material/MenuItem";
+import { useAuth } from "@/hooks/auth";
+import { useRouter } from 'next/router'
 
 const StyledLink = styled(Link) ({
     color: 'grey',
     textDecoration: 'none ',
 });
 
-function Copyright() {
+function Copyright({user, logout}) {
+    console.log('index - Copyright - user: ', user)
+    console.log('index - Copyright - logout: ', logout)
     return (
 
         <Box sx={{ flexGrow: 1 }}>
@@ -43,19 +46,29 @@ function Copyright() {
                     {'.'}
                 </Grid>
                 <Grid item>
-                    <StyledLink component={MxLink} color="inherit" href={'/login'} sx={{ mr: 1.5 }}>
-                        Login
-                    </StyledLink>
-                    <StyledLink component={MxLink} color="inherit" href={'/register'}>
-                        Register
-                    </StyledLink>
+
+                    {user ? (
+                        <>
+                            <StyledLink component={MxLink} color="inherit" href={'/dashboard'} sx={{ mr: 1.5 }}>
+                                Dashboard
+                            </StyledLink>
+                            <StyledLink component={Link} onClick={logout} style={{cursor: "pointer"}} >logout</StyledLink>
+                        </>
+                    ) : (
+                        <>
+                            <StyledLink component={MxLink} color="inherit" href={'/login'} sx={{ mr: 1.5 }}>
+                                Login
+                            </StyledLink>
+                            <StyledLink component={MxLink} color="inherit" href={'/register'}>
+                                Register
+                            </StyledLink>
+                        </>
+                    )}
                 </Grid>
             </Grid>
         </Box>
     );
 }
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
@@ -84,7 +97,13 @@ const footers = [
     },
 ];
 
-export default function Album() {
+const LandingPage = () => {
+    const { logout } = useAuth();
+    const { user } = useAuth();
+
+    const router = useRouter();
+    console.log('index - router.pathname: ', router.pathname)
+
     return (
         <ThemeProvider theme={theme}>
 
@@ -93,7 +112,6 @@ export default function Album() {
             <AppBar
                 position="relative"
                 sx={{ height: 88, backgroundColor: '#099b9f'}}
-                // sx={{ height: 88, backgroundColor: '#1accd1'}}
             >
                 <Toolbar sx={{ mt: 1.5}}>
                     {/* Header Logo */}
@@ -140,6 +158,7 @@ export default function Album() {
                 </Toolbar>
             </AppBar>
 
+            {/* Main Content */}
             <main >
                 {/* Hero unit */}
                 <Box
@@ -212,6 +231,7 @@ export default function Album() {
                 </Box>
             </main>
 
+
             {/* Footer */}
             <Container
                 maxWidth="md"
@@ -242,9 +262,13 @@ export default function Album() {
                         </Grid>
                     ))}
                 </Grid>
-                <Copyright />
+                <Copyright user={user} logout={logout} />
             </Container>
+
+
             {/* End footer */}
         </ThemeProvider>
     );
 }
+
+export default LandingPage;

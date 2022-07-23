@@ -31,7 +31,7 @@ class CallController extends Controller
 
     public function calls() {
         $response = Http::withBasicAuth($this->projectId, $this->token)->get($this->apiCallsUrl);
-        return json_decode($response);
+        return json_decode($response->body());
     }
 
     public function incomingCall(Request $request) {

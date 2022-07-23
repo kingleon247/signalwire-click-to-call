@@ -6,13 +6,14 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
+import { format } from 'date-fns'
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
     return { id, date, name, shipTo, paymentMethod, amount };
 }
 
-const rows = [
+const remove = [
     createData(
         0,
         '16 Mar, 2019',
@@ -48,34 +49,44 @@ const rows = [
     ),
 ];
 
-function preventDefault(event) {
-    event.preventDefault();
+function preventDefault(e) {
+    e.preventDefault();
 }
 
-export default function Orders() {
+const Calls = ({callsData}) => {
+    console.log('Calls - callsData: ', callsData)
     return (
         <React.Fragment>
-            <Title>Recent Orders</Title>
+            <Title>Recent Calls</Title>
             <Table size="small">
                 <TableHead>
                     <TableRow>
+                        <TableCell>From</TableCell>
                         <TableCell>Date</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Ship To</TableCell>
-                        <TableCell>Payment Method</TableCell>
-                        <TableCell align="right">Sale Amount</TableCell>
+                        <TableCell>Duration</TableCell>
+                        <TableCell align='right'>Status</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.id}>
-                            <TableCell>{row.date}</TableCell>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.shipTo}</TableCell>
-                            <TableCell>{row.paymentMethod}</TableCell>
-                            <TableCell align="right">{`$${row.amount}`}</TableCell>
-                        </TableRow>
-                    ))}
+                    {callsData.calls?.map((call) => {
+                        const formatDate = (dateString) => {
+                            const dateTime = new Date(dateString)
+                            const timeOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }
+                            return dateTime.toLocaleTimeString('en-US', timeOptions)
+                        }
+                        const formatDuration = (seconds) => {
+                            return new Date(seconds * 1000).toISOString().slice(11, 19)
+                        }
+
+                        return(
+                            <TableRow key={call.index}>
+                                <TableCell>{call.formatted_from}</TableCell>
+                                <TableCell>{formatDate(call.start_time)}</TableCell>
+                                <TableCell>{formatDuration(call.duration)}</TableCell>
+                                <TableCell align="right">{call.status}</TableCell>
+                            </TableRow>
+                        )
+                    })}
                 </TableBody>
             </Table>
             <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
@@ -84,3 +95,5 @@ export default function Orders() {
         </React.Fragment>
     );
 }
+
+export default Calls
