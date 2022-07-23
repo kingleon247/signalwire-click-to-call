@@ -23,4 +23,8 @@ Route::get('/home', function () {
     return Redirect::to(env('FRONTEND_URL'));
 });
 
+Route::get('/logout', function () {
+    return Redirect::to(env('FRONTEND_URL'));
+});
+
 require __DIR__.'/auth.php';
