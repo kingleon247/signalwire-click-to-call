@@ -22,6 +22,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LandingPageIcon from '@mui/icons-material/Monitor';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PainterIcon from "@mui/icons-material/FormatPaint";
 
 function Copyright(props) {
     return (
@@ -92,9 +93,28 @@ const DrawerContent = ({ toggleDrawer }) => (
                 px: [1],
             }}
         >
-            <IconButton onClick={toggleDrawer}>
-                <ChevronLeftIcon />
-            </IconButton>
+
+            {/* Header Logo */}
+            <PainterIcon sx={{
+                md: 'flex',
+                mr: '4px',
+                fontSize: 28
+            }} />
+            <Typography
+                variant="h5"
+                color="inherit"
+                noWrap
+                sx={{
+                    flexGrow: 1,
+                    fontSize: 18,
+                    fontWeight: 700,
+                    letterSpacing: '.001rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                }}
+            >
+                GreatPainters
+            </Typography>
         </Toolbar>
         <Divider />
         <List component="nav">
@@ -106,7 +126,7 @@ const DrawerContent = ({ toggleDrawer }) => (
 const AuthLayout = ({children}, ...props) => {
     const { user } = useAuth({ middleware: 'auth' })
     const { logout } = useAuth()
-    const { window } = props;(false);
+    const { window } = props;
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [open, setOpen] = React.useState(true);
@@ -140,13 +160,11 @@ const AuthLayout = ({children}, ...props) => {
             <CssBaseline />
             {/* AppBar */}
             <AppBar
-                // position="absolute"
-                // open={open}
-                // sx={{ backgroundColor: '#099b9f'}}
                 position="fixed"
                 sx={{
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                     ml: { sm: `${drawerWidth}px` },
+                    backgroundColor: '#099b9f'
                 }}
             >
                 <Toolbar

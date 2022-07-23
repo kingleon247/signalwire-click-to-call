@@ -140,8 +140,6 @@ const LandingPage = () => {
                         GreatPainters
                     </Typography>
 
-
-
                     {/* Header Click To Call */}
                     <Button
                         href='tel:+15555555555'
