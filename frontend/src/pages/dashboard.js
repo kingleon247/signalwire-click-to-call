@@ -9,6 +9,7 @@ import AuthLayout from "@/components/Layouts/AuthLayout"
 import Head from "next/head"
 import axios from "@/lib/axios";
 import useSWR from "swr";
+import Pagination from '@mui/material/Pagination';
 
 const Dashboard = () => {
     const [callsData, setCallsData] = useState(false)
@@ -78,14 +79,18 @@ const Dashboard = () => {
                 }}
             >
                 <Toolbar />
+
                 <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                     <Grid container spacing={3}>
+
                         {/* Recent Calls */}
                         <Grid item xs={12}>
                             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                <Calls callsData={callsData}/>
+                                {callsData && <Calls callsData={callsData}/>}
+
                             </Paper>
                         </Grid>
+
                     </Grid>
                 </Container>
             </Box>
