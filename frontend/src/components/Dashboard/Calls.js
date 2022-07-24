@@ -1,24 +1,21 @@
-import * as React from 'react';
-import {useState} from "react";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Title from './Title';
-import TablePagination from "@mui/material/TablePagination";
-import TableFooter from "@mui/material/TableFooter";
-import usePagination from "@/components/pagination/Pagination";
-import {useTheme} from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-// import {dataTableData} from "@/components/pagination/dataTableData";
+import * as React from 'react'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Title from './Title'
+import TablePagination from "@mui/material/TablePagination"
+import TableFooter from "@mui/material/TableFooter"
+import usePagination from "@mui/material/usePagination"
+import {useTheme} from "@mui/material/styles"
+import Box from "@mui/material/Box"
+import IconButton from "@mui/material/IconButton"
+import LastPageIcon from "@mui/icons-material/LastPage"
+import FirstPageIcon from "@mui/icons-material/FirstPage"
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight"
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft"
 
-// Generate Order Data
 function formatDate (dateString) {
     const dateTime = new Date(dateString)
     const timeOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }
@@ -27,8 +24,6 @@ function formatDate (dateString) {
 function formatDuration (seconds) {
     return new Date(seconds * 1000).toISOString().slice(11, 19)
 }
-
-
 function TablePaginationActions(props) {
     const theme = useTheme()
     const { count, page, rowsPerPage, onPageChange } = props
@@ -82,40 +77,34 @@ function TablePaginationActions(props) {
         </Box>
     )
 }
+function getActivePageData(data, activePage, itemsPerPage) {
+    const begin = (activePage) * itemsPerPage
+    const end = begin + itemsPerPage
+    return data.slice(begin, end)
+}
 
 
-function Calls ({callsData: {calls}}) {
+export default function Calls ({callsData: {calls}}) {
 
-
-    // // let [page, setPage] = useState(1)
-    // const [page, setPage] = useState(0);
-    // const [rowsPerPage, setRowsPerPage] = useState(10);
-    // const [data, setData] = React.useState([]);
-    // const count = Math.ceil(calls.length / rowsPerPage)
-    const paginationData = usePagination(calls, rowsPerPage)
-
-
-    const [page, setPage] = React.useState(0)
+    const [activePage, setActivePage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
-    // function handleChangePage(e, newPage) {
-    //     setPage(newPage);
-    // }
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage)
-    }
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10))
-        setPage(0)
-    }
+    const paginationItemData = usePagination(calls, rowsPerPage)
+    const activePageData = getActivePageData(calls, activePage, rowsPerPage)
 
     console.log('Calls - calls: ', calls)
-    // console.log('Calls - count: ', count)
-    console.log('Calls - page: ', page)
     console.log('Calls - rowsPerPage: ', rowsPerPage)
-    console.log('Calls - paginationData: ', paginationData)
+    console.log('Calls - activePage: ', activePage)
+    console.log('Calls - paginationItemData: ', paginationItemData)
+    console.log('Calls - activePageData: ', activePageData)
+    function handleChangePage (event, newPage) {
+        setActivePage(newPage)
+    }
+
+    function handleChangeRowsPerPage (event) {
+        setRowsPerPage(parseInt(event.target.value, 10))
+        setActivePage(1)
+    }
 
     return (
         <>
@@ -131,7 +120,7 @@ function Calls ({callsData: {calls}}) {
                 </TableHead>
                 <TableBody>
                     {
-                        paginationData.activeData().map(call => {
+                        activePageData.map(call => {
                         // calls.map(call => {
                         return(
                             <TableRow key={call.sid}>
@@ -144,56 +133,15 @@ function Calls ({callsData: {calls}}) {
                     })}
                 </TableBody>
             </Table>
-
-            <TableFooter>
-                <TableRow>
-                    {/*<TablePagination*/}
-                    {/*    rowsPerPageOptions={[5, 10, 25]}*/}
-                    {/*    count={count}*/}
-                    {/*    rowsPerPage={rowsPerPage}*/}
-                    {/*    page={page}*/}
-                    {/*    SelectProps={{*/}
-                    {/*        inputProps: {*/}
-                    {/*            "aria-label": "rows per page"*/}
-                    {/*        }*/}
-                    {/*    }}*/}
-                    {/*    onPageChange={handleChangePage}*/}
-                    {/*    onRowsPerPageChange={handleChangeRowsPerPage}*/}
-                    {/*    //ActionsComponent={TablePaginationActions}*/}
-                    {/*    //component={Box}*/}
-                    {/*    labelDisplayedRows={({ page }) => {*/}
-                    {/*        return `Page: ${page}`;*/}
-                    {/*    }}*/}
-                    {/*    backIconButtonProps={{*/}
-                    {/*        color: "secondary"*/}
-                    {/*    }}*/}
-                    {/*    nextIconButtonProps={{ color: "secondary" }}*/}
-                    {/*    showFirstButton={true}*/}
-                    {/*    showLastButton={true}*/}
-                    {/*    labelRowsPerPage={<span>Rows:</span>}*/}
-                    {/*    sx={{*/}
-                    {/*        ".MuiTablePagination-toolbar": {*/}
-                    {/*            backgroundColor: "rgba(100,100,100,0.5)"*/}
-                    {/*        },*/}
-                    {/*        ".MuiTablePagination-selectLabel, .MuiTablePagination-input": {*/}
-                    {/*            fontWeight: "bold",*/}
-                    {/*            color: "blue"*/}
-                    {/*        }*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-                </TableRow>
-            </TableFooter>
             <TablePagination
                 component="div"
                 count={calls.length}
-                page={page}
+                page={activePage}
                 ActionsComponent={TablePaginationActions}
                 onPageChange={handleChangePage}
                 rowsPerPage={rowsPerPage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </>
-    );
+    )
 }
-
-export default Calls
