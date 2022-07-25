@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState}  from "react";
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
+import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import { useTheme } from '@mui/material/styles'
-import AuthLayout from '@/components/Layouts/AuthLayout'
-import Head from 'next/head'
-import { dataTableData } from '@/components/pagination/dataTableData'
-import CircularProgress from '@mui/material/CircularProgress'
-import Container from '@mui/material/Container'
-import axios from 'axios'
+import {useTheme} from "@mui/material/styles";
 import Calls from '@/components/Dashboard/Calls'
+import AuthLayout from "@/components/Layouts/AuthLayout"
+import Head from "next/head"
+import axios from "@/lib/axios";
+import useSWR from "swr";
+import { dataTableData } from "@/components/pagination/dataTableData";
+import {CircularProgress} from "@mui/material";
 
 const Dashboard = (props) => {
     const [callsData, setCallsData] = useState(false)
     const [isLoading, setLoading] = useState(true)
 
-    const theme = useTheme()
+    const theme = useTheme();
 
-    console.log('dashboard - props: ', props)
-    console.log('dashboard - theme: ', theme)
-    console.log('dashboard - callsData: ', callsData)
+    console.log('dashboard - props: ', callsData)
+    // console.log('dashboard - dataTableData: ', dataTableData)
 
     useEffect(() => {
-        // setCallsData(dataTableData)
+
+
         axios.post('/api/calls')
             .then(res => {
                 setCallsData(res.data)
@@ -37,8 +38,10 @@ const Dashboard = (props) => {
                 <title>Dashboard</title>
             </Head>
             <Box
-                component='main'
+                component="main"
                 sx={{
+
+                    // display: { xs: 'none', sm: 'block' },
                     backgroundColor: (theme) =>
                         theme.palette.mode === 'light'
                             ? theme.palette.grey[100]

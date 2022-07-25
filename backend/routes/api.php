@@ -57,6 +57,14 @@
         Route::post('/calls', [CallController::class, 'Calls'])
             ->middleware('auth')
             ->name('calls');
+
+//        Route::post('/get-settings', [CallController::class, 'Settings'])
+//            ->middleware('auth')
+//            ->name('get-settings');
+//
+//        Route::post('/update-settings', [CallController::class, 'Settings'])
+//            ->middleware('auth')
+//            ->name('update-settings');
     });
 
     Route::post('/incoming-call', [CallController::class, 'incomingCall'])->name('incomingCall');
