@@ -23,6 +23,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LandingPageIcon from '@mui/icons-material/Monitor';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PainterIcon from "@mui/icons-material/FormatPaint";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Copyright(props) {
     return (
@@ -57,7 +58,7 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Drawer2 = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+const DrawerPermanent = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         '& .MuiDrawer-paper': {
             position: 'relative',
@@ -240,7 +241,7 @@ const AuthLayout = ({children}, ...props) => {
             >
                 <DrawerContent toggleDrawer={toggleDrawer}/>
             </Drawer>
-            <Drawer2
+            <DrawerPermanent
                 variant="permanent"
                 sx={{
                     display: { xs: 'none', sm: 'block' },
@@ -249,9 +250,7 @@ const AuthLayout = ({children}, ...props) => {
                 open={open}
             >
                 <DrawerContent toggleDrawer={toggleDrawer}/>
-            </Drawer2>
-
-            {/* Main Content */}
+            </DrawerPermanent>
             { children }
         </Box>
     );

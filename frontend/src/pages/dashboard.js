@@ -1,31 +1,34 @@
-import React, {useEffect, useState}  from "react";
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import {useTheme} from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles'
+import AuthLayout from '@/components/Layouts/AuthLayout'
+import Head from 'next/head'
+import { dataTableData } from '@/components/pagination/dataTableData'
+import CircularProgress from '@mui/material/CircularProgress'
+import Container from '@mui/material/Container'
+import axios from 'axios'
 import Calls from '@/components/Dashboard/Calls'
-import AuthLayout from "@/components/Layouts/AuthLayout"
-import Head from "next/head"
-import axios from "@/lib/axios";
-import useSWR from "swr";
-import { dataTableData } from "@/components/pagination/dataTableData";
 
 const Dashboard = (props) => {
     const [callsData, setCallsData] = useState(false)
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(true)
 
-    const theme = useTheme();
+    const theme = useTheme()
 
     console.log('dashboard - props: ', props)
     console.log('dashboard - theme: ', theme)
-    console.log('dashboard - dataTableData: ', dataTableData)
+    console.log('dashboard - callsData: ', callsData)
 
     useEffect(() => {
-        setCallsData(dataTableData)
-        // axios.post('/api/calls')
-        //     .then(res => setCallsData(res.data))
+        // setCallsData(dataTableData)
+        axios.post('/api/calls')
+            .then(res => {
+                setCallsData(res.data)
+                setLoading(!isLoading)
+            })
     }, [])
 
     return (
@@ -34,10 +37,8 @@ const Dashboard = (props) => {
                 <title>Dashboard</title>
             </Head>
             <Box
-                component="main"
+                component='main'
                 sx={{
-
-                    // display: { xs: 'none', sm: 'block' },
                     backgroundColor: (theme) =>
                         theme.palette.mode === 'light'
                             ? theme.palette.grey[100]
@@ -49,19 +50,29 @@ const Dashboard = (props) => {
             >
                 <Toolbar />
 
-                <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-                    <Grid container spacing={3}>
+                {!isLoading
+                    ? <Container maxWidth='xl' sx={{ mt: 4, mb: 4 }}>
+                        <Grid container spacing={3}>
 
-                        {/* Recent Calls */}
-                        <Grid item xs={12}>
-                            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                {callsData && <Calls callsData={callsData}/>}
+                            {/* Recent Calls */}
+                            <Grid item xs={12}>
+                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                                    <Calls callsData={callsData} />
 
-                            </Paper>
+                                </Paper>
+                            </Grid>
+
                         </Grid>
+                    </Container>
 
-                    </Grid>
-                </Container>
+                    : <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={2} sx={{ textAlign: 'center', pt: '25%', pb: '75%' }}>
+                            <Grid item xs={12}>
+                                <CircularProgress sx={{ color: '#80808085' }} />
+                            </Grid>
+                        </Grid>
+                    </Box>
+                }
             </Box>
         </AuthLayout>
 

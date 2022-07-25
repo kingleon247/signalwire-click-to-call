@@ -121,7 +121,6 @@ export default function Calls ({callsData: {calls}}) {
                 <TableBody>
                     {
                         activePageData.map(call => {
-                        // calls.map(call => {
                         return(
                             <TableRow key={call.sid}>
                                 <TableCell>{call.formatted_from}</TableCell>
