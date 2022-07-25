@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
+import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -28,7 +28,7 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" href="#">
                 Your Website
             </Link>{' '}
             {new Date().getFullYear()}
@@ -57,7 +57,7 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+const Drawer2 = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         '& .MuiDrawer-paper': {
             position: 'relative',
@@ -129,20 +129,14 @@ const AuthLayout = ({children}, ...props) => {
     const { window } = props;
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
-
     const handleDrawerToggle = () => {
-        alert('handleDrawerToggle')
         setOpen(!open);
-    };
-
-    const handleChange = (e) => {
-        setAuth(e.target.checked);
     };
 
     const handleMenu = (e) => {
@@ -192,42 +186,42 @@ const AuthLayout = ({children}, ...props) => {
                         Dashboard
                     </Typography>
 
-                    {auth && (
-                        <div>
-                            <Typography variant='p'>{user?.name}</Typography>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                <MenuItem component={MxLink} href={'/dashboard'}><DashboardIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Dashboard</MenuItem>
-                                <MenuItem component={MxLink} href={'/settings'}><SettingsIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Settings</MenuItem>
-                                <MenuItem component={MxLink} href={'/'}><LandingPageIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Landing Page</MenuItem>
-                                <Divider sx={{ my: 0.5 }} />
-                                <MenuItem onClick={logout}><LogoutIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Logout</MenuItem>
-                            </Menu>
-                        </div>
-                    )}
+
+                    <div>
+                        <Typography variant='p'>{user?.name}</Typography>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleMenu}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem component={MxLink} href={'/dashboard'}><DashboardIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Dashboard</MenuItem>
+                            <MenuItem component={MxLink} href={'/settings'}><SettingsIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Settings</MenuItem>
+                            <MenuItem component={MxLink} href={'/'}><LandingPageIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Landing Page</MenuItem>
+                            <Divider sx={{ my: 0.5 }} />
+                            <MenuItem onClick={logout}><LogoutIcon sx={{ fontSize: 18, mr: 1, color: 'gray' }} /> Logout</MenuItem>
+                        </Menu>
+                    </div>
+
                 </Toolbar>
             </AppBar>
             {/* Drawer */}
@@ -246,7 +240,7 @@ const AuthLayout = ({children}, ...props) => {
             >
                 <DrawerContent toggleDrawer={toggleDrawer}/>
             </Drawer>
-            <Drawer
+            <Drawer2
                 variant="permanent"
                 sx={{
                     display: { xs: 'none', sm: 'block' },
@@ -255,7 +249,7 @@ const AuthLayout = ({children}, ...props) => {
                 open={open}
             >
                 <DrawerContent toggleDrawer={toggleDrawer}/>
-            </Drawer>
+            </Drawer2>
 
             {/* Main Content */}
             { children }
