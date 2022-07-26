@@ -16,7 +16,6 @@ import MxLink from "@/components/MxLink"
 import { useAuth } from "@/hooks/auth"
 import axios from '@/lib/axios'
 import useSWR from 'swr'
-import { useState } from 'react'
 
 const StyledLink = styled(Link) ({
     color: 'grey',
@@ -100,16 +99,6 @@ const footers = [
 const LandingPage = ({ numbers }) => {
     const { logout } = useAuth()
     const { user } = useAuth()
-
-	useSWR('/settings/business-number', () =>
-		axios
-			.get('/api/settings/business-number')
-			.then(res => {
-				setNumbers(res.data.numbers)
-				return res.data.numbers
-			})
-	)
-	// console.log('index - props: ', props)
 
     return (
         <ThemeProvider theme={theme}>
@@ -267,14 +256,10 @@ export default LandingPage
 
 // This function gets called at build time
 export async function getStaticProps() {
-	// Call an external API endpoint to get posts
-	const numbers = await axios.get('/api/settings/business-number').then(res => res.data.numbers)
-
-	// axios
-	// 	.get('/api/settings/business-number')
-	// 	.then(res => {setNumbers(res.data.numbers)})
-	// By returning { props: { posts } }, the Blog component
-	// will receive `posts` as a prop at build time
+	// Call backend API endpoint to get signalwire number to statically display on landing page
+	const numbers = await axios
+		.get('/api/settings/business-number')
+		.then(res => res.data.numbers)
 	return {
 		props: {
 			numbers,
