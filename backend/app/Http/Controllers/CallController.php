@@ -30,8 +30,9 @@
 		{
 			$settings = DB::table('settings')->first();
 			$business_number = $settings->signalwire_number;
+			// format numbers for display
 			$formattedNumber = "(".substr($business_number, 2, 3).") ".substr($business_number, 5, 3)."-".substr($business_number,8);
-			return response(['numbers' => ['businessNumber' => $business_number, 'businessNumberFormatted' => $formattedNumber]]);
+			return response(['numbers' => ['business' => $business_number, 'businessFormatted' => $formattedNumber]]);
 		}
 
 		public function calls()
