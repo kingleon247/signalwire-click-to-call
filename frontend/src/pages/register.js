@@ -1,4 +1,3 @@
-import ApplicationLogo from '@/components/ApplicationLogo'
 import AuthCard from '@/components/AuthCard'
 import AuthValidationErrors from '@/components/AuthValidationErrors'
 import Button from '@/components/Button'
@@ -24,16 +23,12 @@ const Register = () => {
 	const [password, setPassword] = useState('')
 	const [passwordConfirmation, setPasswordConfirmation] = useState('')
 	const [errors, setErrors] = useState([])
-	const [invitationId, setInvitationId] = useState('')
 
-	console.log('register - errors: ', errors)
-	console.log('register - errors.length: ', errors.length)
 	const submitForm = event => {
 		event.preventDefault()
 
-		register({ name, email, password, password_confirmation: passwordConfirmation, setErrors, invitationId })
+		register({ name, email, password, password_confirmation: passwordConfirmation, setErrors })
 	}
-
 
 	return (
 		<GuestLayout>

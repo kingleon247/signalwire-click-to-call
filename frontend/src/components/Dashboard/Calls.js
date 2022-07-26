@@ -4,9 +4,8 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Title from './Title'
+import { Title } from './Title'
 import TablePagination from "@mui/material/TablePagination"
-import TableFooter from "@mui/material/TableFooter"
 import usePagination from "@mui/material/usePagination"
 import {useTheme} from "@mui/material/styles"
 import Box from "@mui/material/Box"
@@ -84,7 +83,7 @@ function getActivePageData(data, activePage, itemsPerPage) {
 }
 
 
-export default function Calls ({callsData: {calls}}) {
+const Calls = ({callsData: {calls}}) => {
 
     const [activePage, setActivePage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(10)
@@ -92,11 +91,6 @@ export default function Calls ({callsData: {calls}}) {
     const paginationItemData = usePagination(calls, rowsPerPage)
     const activePageData = getActivePageData(calls, activePage, rowsPerPage)
 
-    console.log('Calls - calls: ', calls)
-    console.log('Calls - rowsPerPage: ', rowsPerPage)
-    console.log('Calls - activePage: ', activePage)
-    console.log('Calls - paginationItemData: ', paginationItemData)
-    console.log('Calls - activePageData: ', activePageData)
     function handleChangePage (event, newPage) {
         setActivePage(newPage)
     }
@@ -145,3 +139,5 @@ export default function Calls ({callsData: {calls}}) {
         </>
     )
 }
+
+export default Calls

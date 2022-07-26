@@ -1,28 +1,21 @@
-import React, {useEffect, useState}  from "react";
+import React, {useEffect, useState}  from "react"
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import {useTheme} from "@mui/material/styles";
+import {useTheme} from "@mui/material/styles"
 import Calls from '@/components/Dashboard/Calls'
 import AuthLayout from "@/components/Layouts/AuthLayout"
 import Head from "next/head"
-import axios from "@/lib/axios";
-import {CircularProgress} from "@mui/material";
+import axios from "@/lib/axios"
+import {CircularProgress} from "@mui/material"
 
 const Dashboard = (props) => {
     const [callsData, setCallsData] = useState(false)
     const [isLoading, setLoading] = useState(true)
 
-    const theme = useTheme();
-
-    console.log('dashboard - props: ', callsData)
-    // console.log('dashboard - dataTableData: ', dataTableData)
-
     useEffect(() => {
-
-
         axios.post('/api/calls')
             .then(res => {
                 setCallsData(res.data)

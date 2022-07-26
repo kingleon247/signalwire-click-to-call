@@ -10,7 +10,6 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import SaveIcon from '@mui/icons-material/Save'
 import TextField from '@mui/material/TextField'
 import AuthLayout from '@/components/Layouts/AuthLayout'
-import AuthValidationErrors from '@/components/AuthValidationErrors'
 import { CircularProgress } from '@mui/material'
 
 const Settings = () => {
