@@ -5,10 +5,6 @@
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Http;
 	use SignalWire\LaML\VoiceResponse;
-	use SignalWire\Rest\Client;
-	use Twilio\Exceptions\ConfigurationException;
-	use Twilio\Exceptions\TwilioException;
-	use Twilio\Http\Response;
 
 	class CallController extends Controller
 	{

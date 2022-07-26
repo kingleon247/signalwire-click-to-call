@@ -9,8 +9,6 @@ import Calls from '@/components/Dashboard/Calls'
 import AuthLayout from "@/components/Layouts/AuthLayout"
 import Head from "next/head"
 import axios from "@/lib/axios";
-import useSWR from "swr";
-import { dataTableData } from "@/components/pagination/dataTableData";
 import {CircularProgress} from "@mui/material";
 
 const Dashboard = (props) => {
@@ -68,14 +66,14 @@ const Dashboard = (props) => {
                         </Grid>
                     </Container>
 
-                    : <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={2} sx={{ textAlign: 'center', pt: '25%', pb: '75%' }}>
-                            <Grid item xs={12}>
-                                <CircularProgress sx={{ color: '#80808085' }} />
-                            </Grid>
-                        </Grid>
-                    </Box>
-                }
+									: <Box sx={{ flexGrow: 1 }}>
+										<Grid container spacing={2} sx={{ textAlign: 'center', pt: '25%', pb: '75%' }}>
+											<Grid item xs={12}>
+												<CircularProgress sx={{ color: '#80808085' }} />
+											</Grid>
+										</Grid>
+									</Box>
+								}
             </Box>
         </AuthLayout>
 

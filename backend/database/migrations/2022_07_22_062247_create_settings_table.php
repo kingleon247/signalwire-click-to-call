@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('settings_models', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->unsigned();
+						$table->foreign('user_id')
+						->references('id')
+						->on('users')
+						->onDelete('cascade');
             $table->string('space_url');
             $table->string('project_id');
             $table->string('token');
             $table->string('signalwire_number');
-            $table->string('forwarding_number');
-            $table->string('business_name')->default('Perfect Painters');
             $table->string('forwarding_number');
             $table->timestamps();
         });
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings_models');
+        Schema::dropIfExists('settings');
     }
 };

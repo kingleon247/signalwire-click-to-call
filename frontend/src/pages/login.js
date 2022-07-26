@@ -11,6 +11,8 @@ import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import 'tailwindcss/tailwind.css'
+import PainterIcon from '@mui/icons-material/FormatPaint'
+import * as React from 'react'
 
 const Login = () => {
     const router = useRouter()
@@ -45,7 +47,7 @@ const Login = () => {
                 logo={
                     <Link href="/">
                         <a>
-                            <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
+													<PainterIcon sx={{ md: 'flex', mr: '4px', fontSize: 66, color: 'gray'}} />
                         </a>
                     </Link>
                 }>

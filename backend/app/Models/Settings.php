@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class SettingsModel extends Model
+class Settings extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,6 +17,7 @@ class SettingsModel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+    		'user_id',
         'space_url',
         'project_id',
         'token',

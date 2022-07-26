@@ -1,29 +1,27 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import PainterIcon from '@mui/icons-material/FormatPaint';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import {createTheme, styled, ThemeProvider} from '@mui/material/styles';
-import IphoneIcon from "@mui/icons-material/PhoneIphone";
-import MxLink from "@/components/MxLink";
-import { useAuth } from "@/hooks/auth";
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Button from '@mui/material/Button'
+import PainterIcon from '@mui/icons-material/FormatPaint'
+import CssBaseline from '@mui/material/CssBaseline'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import Link from '@mui/material/Link'
+import {createTheme, styled, ThemeProvider} from '@mui/material/styles'
+import IphoneIcon from "@mui/icons-material/PhoneIphone"
+import MxLink from "@/components/MxLink"
+import { useAuth } from "@/hooks/auth"
 import { useRouter } from 'next/router'
 
 const StyledLink = styled(Link) ({
     color: 'grey',
     textDecoration: 'none ',
-});
+})
 
 function Copyright({user, logout}) {
-    console.log('index - Copyright - user: ', user)
-    console.log('index - Copyright - logout: ', logout)
     return (
 
         <Box sx={{ flexGrow: 1 }}>
@@ -67,10 +65,10 @@ function Copyright({user, logout}) {
                 </Grid>
             </Grid>
         </Box>
-    );
+    )
 }
 
-const theme = createTheme();
+const theme = createTheme()
 
 const footers = [
     {
@@ -95,14 +93,11 @@ const footers = [
         title: 'Legal',
         description: ['Privacy policy', 'Terms of use'],
     },
-];
+]
 
 const LandingPage = () => {
-    const { logout } = useAuth();
-    const { user } = useAuth();
-
-    const router = useRouter();
-    console.log('index - router.pathname: ', router.pathname)
+    const { logout } = useAuth()
+    const { user } = useAuth()
 
     return (
         <ThemeProvider theme={theme}>
@@ -266,7 +261,7 @@ const LandingPage = () => {
 
             {/* End footer */}
         </ThemeProvider>
-    );
+    )
 }
 
-export default LandingPage;
+export default LandingPage
