@@ -14,7 +14,9 @@ import {createTheme, styled, ThemeProvider} from '@mui/material/styles'
 import IphoneIcon from "@mui/icons-material/PhoneIphone"
 import MxLink from "@/components/MxLink"
 import { useAuth } from "@/hooks/auth"
-import { useRouter } from 'next/router'
+import axios from '@/lib/axios'
+import useSWR from 'swr'
+import { useState } from 'react'
 
 const StyledLink = styled(Link) ({
     color: 'grey',
@@ -95,9 +97,19 @@ const footers = [
     },
 ]
 
-const LandingPage = () => {
+const LandingPage = ({ numbers }) => {
     const { logout } = useAuth()
     const { user } = useAuth()
+
+	useSWR('/settings/business-number', () =>
+		axios
+			.get('/api/settings/business-number')
+			.then(res => {
+				setNumbers(res.data.numbers)
+				return res.data.numbers
+			})
+	)
+	// console.log('index - props: ', props)
 
     return (
         <ThemeProvider theme={theme}>
@@ -111,8 +123,6 @@ const LandingPage = () => {
                 <Toolbar sx={{ mt: 1.5}}>
                     {/* Header Logo */}
                     <PainterIcon sx={{
-                        // display: { xs: 'none', sm: 'flex' },
-                        md: 'flex',
                         mr: { xs: .5, sm: 1},
                         fontSize: { xs: 30, sm: 44 }
                     }} />
@@ -124,8 +134,6 @@ const LandingPage = () => {
                             flexGrow: 1,
                             mr: 2,
                             fontSize: { xs: 16, sm: 28 },
-                            // display: { xs: 'none', sm: 'flex' },
-                            // fontFamily: 'monospace',
                             fontWeight: 500,
                             letterSpacing: '.001rem',
                             color: 'inherit',
@@ -137,15 +145,14 @@ const LandingPage = () => {
 
                     {/* Header Click To Call */}
                     <Button
-                        href='tel:+15555555555'
+                        href={`tel:${numbers.businessNumber}`}
                         color="inherit"
                         sx={{ fontSize: { xs: 12, sm: 18 } }}
                     >
                         <IphoneIcon
-                            // xs={{ display: { sm: 'none' }}}
                             sx={{ fontSize: { xs: 14, sm: 22 } }}
                         />
-                        (455) 555-5555
+										{numbers.businessNumberFormatted}
                     </Button>
 
                 </Toolbar>
@@ -157,13 +164,10 @@ const LandingPage = () => {
                 <Box
                     sx={{
                         backgroundImage: "linear-gradient(rgb(0 0 0 / 0%), #0f0f10e0), url('img/pexels-terry-magallanes-2988860.jpg')",
-                        // backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/pexels-terry-magallanes-2988860.jpg')",
-                        // backgroundImage: "url('/img/pexels-pixabay-271816.jpg')",
                         backgroundSize: 'cover',
                         height: '101vh',
                         overflow: 'hidden',
                         backgroundPosition: 'center top',
-                        // bgcolor: 'background.paper',
                         pt: 8,
                         pb: 6,
                     }}
@@ -188,7 +192,6 @@ const LandingPage = () => {
                         <Typography
                             variant="h5"
                             align="center"
-                            // color="text.secondary"
                             color='#f9e8e8'
                             paragraph
                             sx={{ fontSize: { xs: '1.3rem', sm: '1.5rem' }  }}
@@ -210,10 +213,8 @@ const LandingPage = () => {
                             justifyContent="center"
                         >
                             <Button
-                                href='tel:+15555555555'
+															href={`tel:${numbers.businessNumber}`}
                                 variant="contained"
-                                // sx={{ backgroundColor: '#07b0c1' }}
-                                // sx={{ backgroundColor: '#a37413' }}
                                 sx={{ backgroundColor: '#68a313' }}
                             >
                                 Click to Call Now!
@@ -246,7 +247,7 @@ const LandingPage = () => {
                             <ul>
                                 {footer.description.map((item) => (
                                     <li key={item}>
-                                        <Link href={item === 'Developer stuff' ? 'https://www.google.com' : '#'} variant="subtitle1" color="text.secondary" sx={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                                        <Link href={item === 'Developer stuff' ? '#' : '#'} variant="subtitle1" color="text.secondary" sx={{ textDecoration: 'none', fontWeight: 'bold' }}>
                                             {item}
                                         </Link>
                                     </li>
@@ -257,11 +258,26 @@ const LandingPage = () => {
                 </Grid>
                 <Copyright user={user} logout={logout} />
             </Container>
-
-
-            {/* End footer */}
         </ThemeProvider>
     )
 }
 
 export default LandingPage
+
+
+// This function gets called at build time
+export async function getStaticProps() {
+	// Call an external API endpoint to get posts
+	const numbers = await axios.get('/api/settings/business-number').then(res => res.data.numbers)
+
+	// axios
+	// 	.get('/api/settings/business-number')
+	// 	.then(res => {setNumbers(res.data.numbers)})
+	// By returning { props: { posts } }, the Blog component
+	// will receive `posts` as a prop at build time
+	return {
+		props: {
+			numbers,
+		},
+	}
+}

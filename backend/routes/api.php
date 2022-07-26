@@ -62,13 +62,17 @@
 		Route::post('/incoming-call', [CallController::class, 'incomingCall'])->name('incomingCall');
 
 
-	Route::get('/settings/edit', [SettingsController::class, 'edit'])
-//            ->middleware('auth')
-		->name('settings.edit');
+		Route::get('/settings/edit', [SettingsController::class, 'edit'])
+			//	->middleware('auth')
+			->name('settings.edit');
 
 		Route::patch('/settings/update', [SettingsController::class, 'update'])
-//		->middleware('update')
+			//	->middleware('update')
 			->name('settings.update');
 
 
+
 	});
+	Route::get('/settings/business-number', [CallController::class, 'index'])
+		//	->middleware('update')
+		->name('call.index');

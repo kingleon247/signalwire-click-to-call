@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 
 	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Http;
 	use SignalWire\LaML\VoiceResponse;
 
@@ -23,6 +24,14 @@
 			$this->apiBaseUri = getenv('SIGNALWIRE_API_BASE_URI');
 			$this->apiMainUrl = "https://" . $this->spaceUrl . $this->apiBaseUri . "/" . $this->projectId;
 			$this->apiCallsUrl = $this->apiMainUrl . "/Calls.json";
+		}
+
+		public function index()
+		{
+			$settings = DB::table('settings')->first();
+			$business_number = $settings->signalwire_number;
+			$formattedNumber = "(".substr($business_number, 2, 3).") ".substr($business_number, 5, 3)."-".substr($business_number,8);
+			return response(['numbers' => ['businessNumber' => $business_number, 'businessNumberFormatted' => $formattedNumber]]);
 		}
 
 		public function calls()
