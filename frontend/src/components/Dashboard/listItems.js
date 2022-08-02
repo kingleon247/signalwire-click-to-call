@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import SettingsIcon from '@mui/icons-material/Settings'
 import LandingPageIcon from '@mui/icons-material/Monitor'
-import MxLink from "@/components/MxLink"
+import MxLink from "../../components/MxLink"
 
 export const mainListItems = (
     <>

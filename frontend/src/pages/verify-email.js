@@ -1,11 +1,11 @@
-import ApplicationLogo from '@/components/ApplicationLogo'
-import AuthCard from '@/components/AuthCard'
-import Button from '@/components/Button'
-import GuestLayout from '@/components/Layouts/GuestLayout'
-import Link from 'next/link'
-import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
+import Link from 'next/link'
 import 'tailwindcss/tailwind.css'
+import ApplicationLogo from '../components/ApplicationLogo'
+import AuthCard from '../components/AuthCard'
+import Button from '../components/Button'
+import GuestLayout from '../components/Layouts/GuestLayout'
+import { useAuth } from '../hooks/auth'
 
 const VerifyEmail = () => {
     const { logout, resendEmailVerification } = useAuth({
@@ -28,7 +28,7 @@ const VerifyEmail = () => {
                 <div className="mb-4 text-sm text-gray-600">
                     Thanks for signing up! Before getting started, could you
                     verify your email address by clicking on the link we just
-                    emailed to you? If you didn't receive the email, we will
+                    emailed to you? If you didn&apos;t receive the email, we will
                     gladly send you another.
                 </div>
 

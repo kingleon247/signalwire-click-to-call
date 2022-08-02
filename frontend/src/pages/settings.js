@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import axios from '@/lib/axios'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
@@ -9,8 +8,9 @@ import Paper from '@mui/material/Paper'
 import LoadingButton from '@mui/lab/LoadingButton'
 import SaveIcon from '@mui/icons-material/Save'
 import TextField from '@mui/material/TextField'
-import AuthLayout from '@/components/Layouts/AuthLayout'
 import { CircularProgress } from '@mui/material'
+import AuthLayout from '../components/Layouts/AuthLayout'
+import axios from '../lib/axios'
 
 const Settings = () => {
 	const [settings, setSettings] = useState({})

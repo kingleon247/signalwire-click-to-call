@@ -1,9 +1,9 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import MxLink from '@/components/MxLink'
 import Link from '@mui/material/Link'
 import { styled } from '@mui/material/styles'
+import MxLink from '../../components/MxLink'
 
 const StyledLink = styled(Link)({
 	color: 'grey',

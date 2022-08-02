@@ -1,18 +1,17 @@
-import ApplicationLogo from '@/components/ApplicationLogo'
-import AuthCard from '@/components/AuthCard'
-import AuthSessionStatus from '@/components/AuthSessionStatus'
-import AuthValidationErrors from '@/components/AuthValidationErrors'
-import Button from '@/components/Button'
-import GuestLayout from '@/components/Layouts/GuestLayout'
-import Input from '@/components/Input'
-import Label from '@/components/Label'
-import Link from 'next/link'
-import { useAuth } from '@/hooks/auth'
+import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import 'tailwindcss/tailwind.css'
 import PainterIcon from '@mui/icons-material/FormatPaint'
-import * as React from 'react'
+import AuthCard from '../components/AuthCard'
+import AuthSessionStatus from '../components/AuthSessionStatus'
+import AuthValidationErrors from '../components/AuthValidationErrors'
+import Button from '../components/Button'
+import GuestLayout from '../components/Layouts/GuestLayout'
+import Input from '../components/Input'
+import Label from '../components/Label'
+import { useAuth } from '../hooks/auth'
 
 const Login = () => {
     const router = useRouter()
@@ -33,7 +32,7 @@ const Login = () => {
         } else {
             setStatus(null)
         }
-    })
+    }, [router.query.reset, errors.length])
 
     const submitForm = async event => {
         event.preventDefault()
@@ -108,9 +107,14 @@ const Login = () => {
                     </div>
 
                     <div className="flex items-center justify-end mt-4">
+                        <Link href="/register">
+                            <a className="underline text-sm text-gray-600 hover:text-gray-900">
+                                Register
+                            </a>
+                        </Link>
                         <Link href="/forgot-password">
                             <a className="underline text-sm text-gray-600 hover:text-gray-900">
-                                Forgot your password?
+                                Forgot password?
                             </a>
                         </Link>
 

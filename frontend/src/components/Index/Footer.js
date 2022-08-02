@@ -1,10 +1,10 @@
+import * as React from 'react'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link'
-import Copyright from '@/components/Index/Copyright'
-import * as React from 'react'
-import { footerLinks } from '@/components/Index/footerLinks'
+import Copyright from '../../components/Index/Copyright'
+import { footerLinks } from '../../components/Index/footerLinks'
 
 export const Footer = ({ user, logout }) => {
 	return (
@@ -16,7 +16,7 @@ export const Footer = ({ user, logout }) => {
 				mt: 8,
 				mb: -1,
 				py: [3, 6],
-				ul: { margin: 0, padding: 0, listStyle: 'none', listStyleType: 'none', textDecoration: 'none' },
+				ul: { margin: 0, padding: 0, listStyle: 'none', listStyleType: 'none', textDecoration: 'none' }
 			}}
 		>
 			<Grid container spacing={4} justifyContent='space-evenly' sx={{ textAlign: 'center' }}>

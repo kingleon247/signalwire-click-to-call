@@ -25,9 +25,9 @@
 		public function store(Request $request)
 		{
 			// This logic prevents multiple users from being created.
-			// By default new users default to non admins at database level.
+			// By default new users default to non admin users at database level.
 			// First user created will be set to admin.
-			// All other user registry attempts will an receive error message.
+			// All other user registry attempts will receive an unauthorized request message.
 
 			// Check if user exists. If so, return error message.
 			$adminExists = DB::table('users')->whereIsAdmin(true)->exists();

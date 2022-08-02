@@ -1,32 +1,23 @@
-# Dockerfile
-
-# Use node alpine as it's a small node image
-FROM node:16-alpine
-
-## Create the directory on the node image
-## where our Next.js app will live
-#RUN mkdir -p /app
-
-# Set /app as the working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json
-# to the /app working directory
+FROM node:lts as dependencies
+WORKDIR /frontend
 COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-# Install dependencies in /app
-RUN yarn install
+FROM node:lts as builder
+WORKDIR /frontend
+COPY . .
+COPY --from=dependencies /frontend/node_modules ./node_modules
+RUN yarn build
 
-# Copy the rest of our Next.js folder into /app
-COPY next.config.js ./next.config.js
-COPY src/pages ./pages
-COPY public ./public
-COPY styles ./styles
+FROM node:lts as runner
+WORKDIR /frontend
+ENV NODE_ENV production
+# If you are using a custom next.config.js file, uncomment this line.
+# COPY --from=builder /frontend/next.config.js ./
+COPY --from=builder /frontend/public ./public
+COPY --from=builder /frontend/.next ./.next
+COPY --from=builder /frontend/node_modules ./node_modules
+COPY --from=builder /frontend/package.json ./package.json
 
-CMD ["yarn", "dev"]
-
-# Ensure port 3000 is accessible to our system
 EXPOSE 3000
-
-# Run yarn dev, as we would via the command line
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
