@@ -20,14 +20,17 @@ import {useEffect, useState} from "react";
 const theme = createTheme()
 
 const LandingPage = () => {
-	const [numbers, setNumbers] = useState({business: '5555555555', businessFormatted: '(555) 555-5555'})
+	const [numbers, setNumbers] = useState({business: '', businessFormatted: ''})
 	const { logout } = useAuth()
 	const { user } = useAuth()
+	const initNumbers = {business: '5555555555', businessFormatted: '(555) 555-5555'}
 
 	useEffect(() => {
 
 		axios.get('/api/settings/business-number')
-			.then(res => setNumbers(res.data.numbers))
+			.then(res => {
+				setNumbers(res.data.numbers || initNumbers)
+			})
 	}, [])
 
 	return (
@@ -64,9 +67,9 @@ const LandingPage = () => {
 					<Button
 						href={`tel:${numbers?.business}`}
 						color="inherit"
-						sx={{ fontSize: { xs: 16, sm: 18 } }}
+						sx={{ fontSize: { xs: 16, sm: 18 }, zIndex: 1000}}
 					>
-						<IphoneIcon sx={{ fontSize: { xs: 20, sm: 22 } }} />
+						{numbers?.businessFormatted && <IphoneIcon sx={{fontSize: {xs: 20, sm: 22}}}/>}
 						{numbers?.businessFormatted}
 					</Button>
 

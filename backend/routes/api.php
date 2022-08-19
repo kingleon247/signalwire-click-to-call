@@ -70,5 +70,7 @@
 			->name('settings.update');
 	});
 
+	Route::post('/incoming-call', [CallController::class, 'incomingCall'])->name('incomingCall');
+
 	Route::get('/settings/business-number', [CallController::class, 'index'])
 		->name('call.index');

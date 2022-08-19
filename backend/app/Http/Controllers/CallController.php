@@ -18,7 +18,7 @@
 
 		private function getCallsUrl($spaceUrl, $projectId)
 		{
-			return "https://" . $spaceUrl . $this->apiBaseUri . "/" . $projectId . "/Calls.json";
+			return "https://" . $spaceUrl . "/api/laml/2010-04-01/Accounts" . "/" . $projectId . "/Calls.json";
 		}
 
 		public function index()
@@ -41,7 +41,7 @@
 				$response = Http::withBasicAuth($settings->project_id, $settings->token)
 					->get($this->getCallsUrl($settings->space_url, $settings->project_id));
 				$data = json_decode($response->body(), true);
-				return $data;
+
 				// Handle call data.
 				if (isset($data['calls'])) {
 					return response($data, 200);

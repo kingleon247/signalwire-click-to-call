@@ -11,9 +11,12 @@ import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
 import LastPageIcon from "@mui/icons-material/LastPage"
 import FirstPageIcon from "@mui/icons-material/FirstPage"
+import IncomingCallIcon from '@mui/icons-material/CallReceived'
+import OutingCallIcon from '@mui/icons-material/CallMade'
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight"
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft"
 import { Title } from './Title'
+import {ErrorOutline, PhoneInTalk, PhoneMissed} from "@mui/icons-material";
 
 function formatDate (dateString) {
 	const dateTime = new Date(dateString)
@@ -82,14 +85,51 @@ function getActivePageData(data, activePage, itemsPerPage) {
 	return data.slice(begin, end)
 }
 
+function callDirectionIcon(direction) {
+	const style = {mb: '-7px', mr: '4px'}
+	switch (direction){
+		case 'inbound-dial':
+			return <IncomingCallIcon sx={{mb: '-7px', mr: '4px', color: '#808080'}} />
+
+		case 'outbound-dial':
+			return <OutingCallIcon sx={{mb: '-7px', mr: '4px', color: '#808080'}} />
+
+		case 'inbound':
+			return <IncomingCallIcon sx={{mb: '-7px', mr: '4px', color: '#808080'}} />
+	}
+}
+
+function callStatusIcon(status) {
+	const style = {mb: '-7px', mr: '4px'}
+	switch (status){
+		case 'completed':
+			return <PhoneInTalk sx={{mb: '-7px', mr: '4px', color: '#808080'}} />
+
+		case 'missed':
+			return <PhoneMissed sx={{mb: '-7px', mr: '4px', color: '#808080'}} />
+
+		case 'failed':
+			return <ErrorOutline sx={{mb: '-7px', mr: '4px', color: '#808080'}} />
+
+		default:
+			return status
+	}
+}
+// status: "completed"
+// no answer, completed, failed
+
+function removeInternalCalls(call) {
+	return call.from !== '+12403325366' && call.to !== '+14434588612'
+}
 
 const Calls = ({callsData: {calls}}) => {
 
 	const [activePage, setActivePage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
-	const paginationItemData = usePagination(calls, rowsPerPage)
-	const activePageData = getActivePageData(calls, activePage, rowsPerPage)
+	const filteredCalls = calls.filter(removeInternalCalls)
+	// const paginationItemData = usePagination(calls, rowsPerPage)
+	const activePageData = getActivePageData(filteredCalls, activePage, rowsPerPage)
 
 	function handleChangePage (event, newPage) {
 		setActivePage(newPage)
@@ -99,6 +139,9 @@ const Calls = ({callsData: {calls}}) => {
 		setRowsPerPage(parseInt(event.target.value, 10))
 		setActivePage(1)
 	}
+
+	console.log('Calls - calls: ', calls)
+	console.log('Calls - filteredCalls: ', filteredCalls)
 
 	return (
 		<>
@@ -115,13 +158,12 @@ const Calls = ({callsData: {calls}}) => {
 				<TableBody>
 					{
 						activePageData.map(call => {
-							// calls.map(call => {
 							return(
 								<TableRow key={call.sid}>
-									<TableCell>{call.formatted_from}</TableCell>
+									<TableCell>{callDirectionIcon(call.direction)}{call.formatted_from}</TableCell>
 									<TableCell>{formatDate(call.start_time)}</TableCell>
 									<TableCell>{formatDuration(call.duration)}</TableCell>
-									<TableCell align="right">{call.status}</TableCell>
+									<TableCell align="right">{callStatusIcon(call.status)}</TableCell>
 								</TableRow>
 							)
 						})}
@@ -129,7 +171,7 @@ const Calls = ({callsData: {calls}}) => {
 			</Table>
 			<TablePagination
 				component="div"
-				count={calls.length}
+				count={filteredCalls.length}
 				page={activePage}
 				ActionsComponent={TablePaginationActions}
 				onPageChange={handleChangePage}
